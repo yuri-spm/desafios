@@ -24,10 +24,14 @@ let title = document.querySelector('.msg');
 var button = document.querySelector('.button');
 
 button.addEventListener('click', function(){
+    button.setAttribute('data-action', msg[index].toLowerCase().replace(/ /g, '_'));
+    window.location.href = `register.php?action=${encodeURIComponent(msg[index])}`;
     if(index + 1 == msg.length){
         index = 0;
     }else{
         index = index+1;
     }
     title.textContent = msg[index];
+
+    
 })
