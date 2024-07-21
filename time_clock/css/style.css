@@ -6,11 +6,11 @@
     font-family: 'Open Sans', sans-serif;
 }
 
-
 body {
     height: 100vh;
     background: linear-gradient(120deg, #ffe53bd8, #ff2525da);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -24,9 +24,7 @@ body {
     background-color: transparent;
     border-radius: 3px;
     box-shadow: 0px 8px 10px rgba(0,0,0,5);
-    position: fixed; 
-    top: 20px;
-    right: 20px;
+    margin-bottom: 20px; /* Espaço entre o relógio e o botão de registro */
 }
 
 .clock div {
@@ -53,10 +51,6 @@ body {
 }
 
 .register {
-    position: fixed;
-    top: 140px; 
-    right: 90px;
-    margin-top: 10px;
     display: flex;
     flex-direction: column-reverse;
     gap: 10px;
@@ -74,4 +68,3 @@ body {
 .register button:hover {
     background: rgba(5,5,5,1);
 }
-
