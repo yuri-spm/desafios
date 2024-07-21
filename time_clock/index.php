@@ -25,16 +25,11 @@
     </div>
 
     <div class="register">
-        <button class="button">
-                <a href="register.php">
-                    <span class="msg">
-                        Registrar Entrada
-                    </span>
-
-                </a>
-              
+        <button class="button" data-action="register_entry">
+                <span class="msg">
+                    Registrar Entrada
+                </span>
         </button>
-
     </div>
     <script src="js/script.js"></script>
 </body>
