@@ -22,7 +22,7 @@ $matrixB = [
 ];
 
 $result = addMatrices($matrixA, $matrixB);
-echo "<pre>";gii
+echo "<pre>";
 var_dump($result);
 echo "</pre>";
 ?>
