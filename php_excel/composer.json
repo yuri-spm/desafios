@@ -1,0 +1,19 @@
+{
+    "name": "bevith/php_excel",
+    "description": "PHP with Excel",
+    "autoload": {
+        "psr-4": {
+            "Bevith\\PhpExcel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Yuri do Monte",
+            "email": "yspm.developer@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "phpoffice/phpspreadsheet": "dev-master"
+    }
+}
