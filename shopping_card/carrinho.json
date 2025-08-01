@@ -1,1 +1,12 @@
-[]
+[
+    {
+        "nome": "Camiseta",
+        "preco": 90,
+        "quantidade": 1
+    },
+    {
+        "nome": "Short",
+        "preco": 60,
+        "quantidade": 1
+    }
+]

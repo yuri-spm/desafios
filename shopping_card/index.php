@@ -61,50 +61,113 @@ if (isset($_GET["remover"])) {
         exit;
     }
 }
-
-// show card
-echo "<h2>Carrinho:</h2>";
-$totalGeral = 0;
-
-if (count($_SESSION["carrinho"]) === 0) {
-    echo "Carrinho vazio.<br><br>";
-} else {
-    foreach ($_SESSION["carrinho"] as $index => $item) {
-        $subtotal = $item["preco"] * $item["quantidade"];
-        $totalGeral += $subtotal;
-
-        echo "<strong>Produto:</strong> {$item['nome']}<br>";
-        echo "Preço: R$ {$item['preco']}<br>";
-        echo "Quantidade: {$item['quantidade']}<br>";
-        echo "Subtotal: R$ $subtotal<br>";
-
-        echo "<form method='POST' style='display:inline;'>
-                <input type='hidden' name='indice' value='$index'>
-                <input type='number' name='nova_quantidade' value='{$item['quantidade']}' min='1' style='width:60px;'>
-                <input type='hidden' name='acao' value='atualizar'>
-                <button type='submit'>Atualizar</button>
-              </form> ";
-
-        echo "<a href='?remover=$index'>Remover</a><br><hr>";
-    }
-
-    echo "<strong>Total geral: R$ $totalGeral</strong><br><br>";
-}
 ?>
 
-<!-- Forms -->
-<h3>Adicionar novo produto:</h3>
-<form method="POST">
-    <input type="hidden" name="acao" value="adicionar">
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrinho</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+        h2, h3 {
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 0 5px #ccc;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #007bff;
+            color: #fff;
+        }
+        form {
+            display: inline;
+        }
+        input[type=number] {
+            width: 60px;
+        }
+        .total {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .add-form {
+            margin-top: 20px;
+            background: #fff;
+            padding: 15px;
+            box-shadow: 0 0 5px #ccc;
+        }
+    </style>
+</head>
+<body>
 
-    <label>Nome do produto:</label>
-    <input type="text" name="nome" required><br><br>
+<h2>Carrinho de Compras</h2>
 
-    <label>Preço:</label>
-    <input type="number" step="0.01" name="preco" required><br><br>
+<?php if (empty($_SESSION["carrinho"])): ?>
+    <p>Carrinho vazio.</p>
+<?php else: ?>
+    <table>
+        <tr>
+            <th>Produto</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Subtotal</th>
+            <th>Ações</th>
+        </tr>
+        <?php
+        $totalGeral = 0;
+        foreach ($_SESSION["carrinho"] as $index => $item):
+            $subtotal = $item["preco"] * $item["quantidade"];
+            $totalGeral += $subtotal;
+        ?>
+        <tr>
+            <td><?= htmlspecialchars($item["nome"]) ?></td>
+            <td>R$ <?= number_format($item["preco"], 2, ',', '.') ?></td>
+            <td>
+                <form method="POST">
+                    <input type="hidden" name="acao" value="atualizar">
+                    <input type="hidden" name="indice" value="<?= $index ?>">
+                    <input type="number" name="nova_quantidade" value="<?= $item['quantidade'] ?>" min="1">
+                    <button type="submit">Atualizar</button>
+                </form>
+            </td>
+            <td>R$ <?= number_format($subtotal, 2, ',', '.') ?></td>
+            <td><a href="?remover=<?= $index ?>">Remover</a></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+    <div class="total">Total: R$ <?= number_format($totalGeral, 2, ',', '.') ?></div>
+<?php endif; ?>
 
-    <label>Quantidade:</label>
-    <input type="number" name="quantidade" min="1" required><br><br>
+<div class="add-form">
+    <h3>Adicionar novo produto</h3>
+    <form method="POST">
+        <input type="hidden" name="acao" value="adicionar">
 
-    <button type="submit">Adicionar ao carrinho</button>
-</form>
+        <label>Nome:</label>
+        <input type="text" name="nome" required><br><br>
+
+        <label>Preço:</label>
+        <input type="number" step="0.01" name="preco" required><br><br>
+
+        <label>Quantidade:</label>
+        <input type="number" name="quantidade" min="1" required><br><br>
+
+        <button type="submit">Adicionar ao carrinho</button>
+    </form>
+</div>
+
+</body>
+</html>
